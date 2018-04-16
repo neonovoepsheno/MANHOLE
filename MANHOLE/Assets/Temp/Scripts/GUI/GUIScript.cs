@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class GUIScript : MainManager
 {
-    protected static Text pointsText;
-    protected static GameObject losePanel;
-    protected static GameObject startPanel;
-    protected static GameObject pausePanel;
+    static Text pointsText;
+    static GameObject losePanel;
+    static GameObject startPanel;
+    static GameObject pausePanel;
 
 
     public static bool isGUIWindowEnable;
@@ -17,6 +17,9 @@ public class GUIScript : MainManager
     void Start()
     {
         InitializeValues();
+        EnableStartWindow(true);
+        GUIHandler.InitGUIButtons();
+        DisablePanels();
     }
 
 
@@ -28,7 +31,6 @@ public class GUIScript : MainManager
 
     public static void ShowLoseWindow()
     {
-        Debug.Log("ShowLoseWindow");
         isGUIWindowEnable = true;
         losePanel.SetActive(true);
     }
@@ -48,7 +50,7 @@ public class GUIScript : MainManager
     }
 
 
-    private void InitializeValues()
+    void InitializeValues()
     {
         pointsText = GameObject.Find("GamePointsText").GetComponent<Text>();
         pointsText.text = "" + playerPoints;
@@ -58,8 +60,7 @@ public class GUIScript : MainManager
         startPanel = GameObject.Find("StartPanel");
     }
 
-
-    protected void DisablePanels()
+    void DisablePanels()
     {
         losePanel.SetActive(false);
         pausePanel.SetActive(false);
