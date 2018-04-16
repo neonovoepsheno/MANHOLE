@@ -15,7 +15,6 @@ public class MainManager : MonoBehaviour
         GAME_TIME = 0f;
         isLose = false;
         SpiralMoving.InitSpiralMoving();
-        GUIScript.EnableStartWindow(true);
     }
 
 

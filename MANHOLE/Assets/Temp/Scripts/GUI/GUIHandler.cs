@@ -3,62 +3,53 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class GUIHandler : GUIScript
+public class GUIHandler : MainManager
 {
-    GameObject bRestart;
-    GameObject bStart;
-    GameObject bContinue;
-    GameObject bPause;
+    static GameObject bRestart;
+    static GameObject bStart;
+    static GameObject bContinue;
+    static GameObject bPause;
 
-    void Start()
-    {
-        SetInitValues();
-    }
-
-    void SetInitValues()
+    public static void InitGUIButtons()
     {
         bRestart = GameObject.Find("bRestart");
-        SetTrigger(bRestart, OnRestartClick);
-
-        Debug.Log(bRestart.activeSelf);
+        SetTrigger(bRestart, OnRestartClick, "bRestart");
 
         bStart = GameObject.Find("bStart");
-        SetTrigger(bStart, OnStartClick);
+        SetTrigger(bStart, OnStartClick, "bStart");
 
         bPause = GameObject.Find("bPause");
-        SetTrigger(bPause, OnPauseClick);
+        SetTrigger(bPause, OnPauseClick, "bPause");
 
         bContinue = GameObject.Find("bContinue");
-        SetTrigger(bContinue, OnContinueClick);
-
-        DisablePanels();
+        SetTrigger(bContinue, OnContinueClick, "bContinue");
     }
 
-    public void OnRestartClick(PointerEventData data)
+    public static void OnRestartClick(PointerEventData data)
     {
         SceneManager.LoadScene("main");
     }
 
-    public void OnStartClick(PointerEventData data)
+    public static void OnStartClick(PointerEventData data)
     {
-        EnableStartWindow(false);
+        GUIScript.EnableStartWindow(false);
     }
 
-    public void OnPauseClick(PointerEventData data)
+    public static void OnPauseClick(PointerEventData data)
     {
-        if (!isGUIWindowEnable)
+        if (!GUIScript.isGUIWindowEnable)
         {
-            EnablePauseWindow(true);
+            GUIScript.EnablePauseWindow(true);
         }
     }
 
 
-    public void OnContinueClick(PointerEventData data)
+    public static void OnContinueClick(PointerEventData data)
     {
-        EnablePauseWindow(false);
+        GUIScript.EnablePauseWindow(false);
     }
 
-    void SetTrigger(GameObject goButton, Action<PointerEventData> func)
+    static void SetTrigger(GameObject goButton, Action<PointerEventData> func, string name)
     {
         EventTrigger trigger = goButton.GetComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
