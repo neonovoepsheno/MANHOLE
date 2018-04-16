@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class MainManager : MonoBehaviour
 {
-    protected static float GAME_TIME;
+    protected static float GAME_TIME
+    {
+        get
+        {
+            return Time.time;
+        }
+    }
     protected static int playerPoints;
     protected static bool isLose;
 
@@ -12,18 +18,8 @@ public class MainManager : MonoBehaviour
     private void Start()
     {
         playerPoints = 0;
-        GAME_TIME = 0f;
         isLose = false;
         SpiralMoving.InitSpiralMoving();
-    }
-
-
-    private void Update()
-    {
-        if (!isLose && !GUIScript.isGUIWindowEnable)
-        {
-            GAME_TIME += Time.deltaTime;
-        }
     }
 
 

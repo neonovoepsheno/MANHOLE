@@ -431,8 +431,8 @@ MonoBehaviour:
   pSpiralSpeed: 0.01
   pOuterRadius: 1.3
   pInnerRadius: 0.5
-  pStartDelay: 3
-  pSpiralAllowedTime: 10
+  pStartDelay: 1
+  pSpiralAllowedTime: 3
   pSpiralAllowedDelayTime: 1
 --- !u!58 &429237755
 CircleCollider2D:
@@ -1591,7 +1591,7 @@ MonoBehaviour:
   enemyPrefabArray:
   - {fileID: 1995327100639648, guid: c424eece62823db41a503b56c9901c50, type: 2}
   eStartGenerationDelay: 3
-  eGenerationDelay: 0.5
+  eGenerationDelay: 0.8
 --- !u!1 &1501237010
 GameObject:
   m_ObjectHideFlags: 0
