@@ -40,9 +40,10 @@ public class EnemyBehaviour : BallBehaviour
         }
         else if (coll.gameObject.tag == "Heart")
         {
-            //Debug.Log("You lose");
-            GUIScript.ShowLoseWindow();
-            isLose = true;
+            Debug.Log("You lose");
+
+            //GUIScript.ShowLoseWindow();
+            //isLose = true;
             Destroy(gameObject);
         }
     }

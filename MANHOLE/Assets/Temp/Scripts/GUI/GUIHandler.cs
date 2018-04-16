@@ -21,20 +21,20 @@ public class GUIHandler : MainManager
     public static void OnStartClick(PointerEventData data)
     {
         GUIScript.EnableStartWindow(false);
+        AudioManager.audioSource.Play();
     }
 
     public static void OnPauseClick(PointerEventData data)
     {
-        if (!GUIScript.isGUIWindowEnable)
-        {
-            GUIScript.EnablePauseWindow(true);
-        }
+        GUIScript.EnablePauseWindow(true);
+        AudioManager.IsPause = true;
     }
 
 
     public static void OnContinueClick(PointerEventData data)
     {
         GUIScript.EnablePauseWindow(false);
+        AudioManager.IsPause = false;
     }
 
     static void SetTrigger(GameObject goButton, Action<PointerEventData> func, string name)

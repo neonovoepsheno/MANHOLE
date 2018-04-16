@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent (typeof(AudioSource))]
-public class AudioAnalysis : MonoBehaviour
+public class AudioAnalysis : AudioManager
 {
     private const int FREQ_BANDS_LENGTH = 8;
     private const int SAMPLES_LENGTH = 512;
@@ -16,16 +16,10 @@ public class AudioAnalysis : MonoBehaviour
     [SerializeField]
     private float delta;
 
-    private AudioSource audioSource;
     private static float[] samples = new float[SAMPLES_LENGTH];
     private static float[] freqBand = new float[FREQ_BANDS_LENGTH];
     private static float[] bandBuffer = new float[FREQ_BANDS_LENGTH];
     private float[] bufferDecrease = new float[FREQ_BANDS_LENGTH];
-
-    private void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
 
 
     private void Update()
