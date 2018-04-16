@@ -5,24 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class GUIHandler : MainManager
 {
-    static GameObject bRestart;
-    static GameObject bStart;
-    static GameObject bContinue;
-    static GameObject bPause;
-
-    public static void InitGUIButtons()
+    public static void SetTriggersButtons()
     {
-        bRestart = GameObject.Find("bRestart");
-        SetTrigger(bRestart, OnRestartClick, "bRestart");
-
-        bStart = GameObject.Find("bStart");
-        SetTrigger(bStart, OnStartClick, "bStart");
-
-        bPause = GameObject.Find("bPause");
-        SetTrigger(bPause, OnPauseClick, "bPause");
-
-        bContinue = GameObject.Find("bContinue");
-        SetTrigger(bContinue, OnContinueClick, "bContinue");
+        SetTrigger(GUIScript.bRestart, OnRestartClick, "bRestart");
+        SetTrigger(GUIScript.bStart, OnStartClick, "bStart");
+        SetTrigger(GUIScript.bPause, OnPauseClick, "bPause");
+        SetTrigger(GUIScript.bContinue, OnContinueClick, "bContinue");
     }
 
     public static void OnRestartClick(PointerEventData data)

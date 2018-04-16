@@ -6,9 +6,15 @@ using UnityEngine.UI;
 public class GUIScript : MainManager
 {
     static Text pointsText;
+   
     static GameObject losePanel;
     static GameObject startPanel;
     static GameObject pausePanel;
+
+    public static GameObject bRestart;
+    public static GameObject bStart;
+    public static GameObject bContinue;
+    public static GameObject bPause;
 
 
     public static bool isGUIWindowEnable;
@@ -18,7 +24,7 @@ public class GUIScript : MainManager
     {
         InitializeValues();
         EnableStartWindow(true);
-        GUIHandler.InitGUIButtons();
+        GUIHandler.SetTriggersButtons();
         DisablePanels();
     }
 
@@ -33,6 +39,7 @@ public class GUIScript : MainManager
     {
         isGUIWindowEnable = true;
         losePanel.SetActive(true);
+        EnableUIgo(false);
     }
 
 
@@ -40,6 +47,7 @@ public class GUIScript : MainManager
     {
         isGUIWindowEnable = shouldEnable;
         startPanel.SetActive(shouldEnable);
+        EnableUIgo(!shouldEnable);
     }
 
 
@@ -47,6 +55,7 @@ public class GUIScript : MainManager
     {
         isGUIWindowEnable = shouldEnable;
         pausePanel.SetActive(shouldEnable);
+        EnableUIgo(!shouldEnable);
     }
 
 
@@ -58,11 +67,21 @@ public class GUIScript : MainManager
         losePanel = GameObject.Find("LosePanel");
         pausePanel = GameObject.Find("PausePanel");
         startPanel = GameObject.Find("StartPanel");
+
+        bRestart = GameObject.Find("bRestart");
+        bStart = GameObject.Find("bStart");
+        bPause = GameObject.Find("bPause");
+        bContinue = GameObject.Find("bContinue");
     }
 
     void DisablePanels()
     {
         losePanel.SetActive(false);
         pausePanel.SetActive(false);
+    }
+
+    static void EnableUIgo(bool enable)
+    {
+        bPause.SetActive(enable);
     }
 }
