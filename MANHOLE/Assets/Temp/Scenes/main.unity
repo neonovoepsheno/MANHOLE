@@ -1411,7 +1411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tStartDelay: 3
-  tTimeToDecreasePause: 0.45
+  tTimeToDecreasePause: 0.025
   minTimeScale: 0
 --- !u!4 &1127542841
 Transform:
