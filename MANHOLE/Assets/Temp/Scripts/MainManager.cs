@@ -13,6 +13,7 @@ public class MainManager : MonoBehaviour
     }
     protected static int playerPoints;
     protected static bool isLose;
+    protected static float startTime;
 
 
     private void Start()
@@ -20,6 +21,7 @@ public class MainManager : MonoBehaviour
         playerPoints = 0;
         isLose = false;
         SpiralMoving.InitSpiralMoving();
+        startTime = 0;
     }
 
 

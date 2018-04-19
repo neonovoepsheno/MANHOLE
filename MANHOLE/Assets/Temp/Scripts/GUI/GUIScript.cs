@@ -18,7 +18,8 @@ public class GUIScript : MainManager
 
 
     public static bool isGUIWindowEnable;
-    
+    public static bool isGUIWindowPauseEnable;
+
 
     void Start()
     {
@@ -53,7 +54,11 @@ public class GUIScript : MainManager
 
     public static void EnablePauseWindow(bool shouldEnable)
     {
-        isGUIWindowEnable = shouldEnable;
+        //isGUIWindowEnable = shouldEnable;
+        if (shouldEnable)
+        {
+            isGUIWindowPauseEnable = shouldEnable;
+        }
         pausePanel.SetActive(shouldEnable);
         EnableUIgo(!shouldEnable);
     }

@@ -31,8 +31,6 @@ public class AudioManager : MainManager
     private float aUsualPitch;
     [SerializeField]
     private float aMinPitch;
-    [SerializeField]
-    private float aTimeToDecrease;
 
     static int pausedTimeSamples = 0;
 
@@ -59,25 +57,31 @@ public class AudioManager : MainManager
 
     void ControlPitch()
     {
-        //Debug.Log(audioSource.timeSamples);
         if (_isPause)
         {
             if (audioSource.pitch > aMinPitch)
             {
-                audioSource.pitch -= Time.deltaTime * aUsualPitch * aTimeToDecrease;
-               
-                //audioSource.timeSamples = audioSource.clip.samples - 1;
+                audioSource.pitch -= aUsualPitch * TimeControlManager.timeToDecrease;
             }
-            if (audioSource.timeSamples == 0)
+            else if (audioSource.pitch < aMinPitch)
             {
-                PlayAudioWithTimeSamples(audioSource.clip.samples - 1);
+                audioSource.pitch = aMinPitch;
             }
+            ////Use for reverse
+            //if (audioSource.timeSamples == 0)
+            //{
+            //    PlayAudioWithTimeSamples(audioSource.clip.samples - 1);
+            //}
         }
         else
         {
             if (audioSource.pitch < aUsualPitch)
             {
-                audioSource.pitch += Time.deltaTime * aUsualPitch * aTimeToDecrease;
+                audioSource.pitch += aUsualPitch * TimeControlManager.timeToDecrease;
+            }
+            else if (audioSource.pitch > aUsualPitch)
+            {
+                audioSource.pitch = aUsualPitch;
             }
         }
     }

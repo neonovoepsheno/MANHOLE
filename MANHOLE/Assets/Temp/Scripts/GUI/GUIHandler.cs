@@ -20,6 +20,7 @@ public class GUIHandler : MainManager
 
     public static void OnStartClick(PointerEventData data)
     {
+        startTime = GAME_TIME;
         GUIScript.EnableStartWindow(false);
         AudioManager.audioSource.Play();
     }
@@ -28,6 +29,7 @@ public class GUIHandler : MainManager
     {
         GUIScript.EnablePauseWindow(true);
         AudioManager.IsPause = true;
+        TimeControlManager.isPause = true;
     }
 
 
@@ -35,6 +37,7 @@ public class GUIHandler : MainManager
     {
         GUIScript.EnablePauseWindow(false);
         AudioManager.IsPause = false;
+        TimeControlManager.isPause = false;
     }
 
     static void SetTrigger(GameObject goButton, Action<PointerEventData> func, string name)

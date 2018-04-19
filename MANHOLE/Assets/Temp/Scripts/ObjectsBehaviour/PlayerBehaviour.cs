@@ -21,8 +21,6 @@ public class PlayerBehaviour : BallBehaviour
     [SerializeField]
     private float pInnerRadius;
     [SerializeField]
-    private float pStartDelay;
-    [SerializeField]
     private float pSpiralAllowedTime;
     [SerializeField]
     private float pSpiralAllowedDelayTime;
@@ -51,7 +49,7 @@ public class PlayerBehaviour : BallBehaviour
 
     void Update()
     {
-        if (!GUIScript.isGUIWindowEnable && GAME_TIME > pStartDelay)
+        if (!GUIScript.isGUIWindowEnable && GAME_TIME - startTime > TimeControlManager.startDelay)
         {
             float temp_coef = Time.deltaTime * pCurrentSpeed * directionCoef;
             pTimeCounter += temp_coef;
