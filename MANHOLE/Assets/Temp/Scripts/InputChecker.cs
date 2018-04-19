@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InputChecker : BallBehaviour {
 
@@ -38,7 +39,7 @@ public class InputChecker : BallBehaviour {
 
     void CheckLongPress()
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && IsValidInput())
         {
             if (SpiralMoving.isSpiralStartAllowed)
             {
@@ -60,7 +61,7 @@ public class InputChecker : BallBehaviour {
                 }
             }
         }
-        else if (Input.GetButtonUp("Fire1"))
+        else if (Input.GetButtonUp("Fire1") && IsValidInput())
         {
             if (acumTime < HOLD_TIME)
             {
@@ -74,5 +75,13 @@ public class InputChecker : BallBehaviour {
             PlayerBehaviour.spiralFinishTime = GAME_TIME;
         }
         SpiralMoving.isSpiral = false;
+    }
+
+    bool IsValidInput()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return false;
+        else
+            return true;
     }
 }

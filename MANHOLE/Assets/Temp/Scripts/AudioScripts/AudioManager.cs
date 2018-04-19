@@ -14,14 +14,14 @@ public class AudioManager : MainManager
         set
         {
             _isPause = value;
-            if (value)
-            {
-                pausedTimeSamples = audioSource.timeSamples;
-            }
-            else
-            {
-                PlayAudioWithTimeSamples(pausedTimeSamples);
-            }
+            //if (value)
+            //{
+            //    pausedTimeSamples = audioSource.timeSamples;
+            //}
+            //else
+            //{
+            //    PlayAudioWithTimeSamples(pausedTimeSamples);
+            //}
         }
     }
 
