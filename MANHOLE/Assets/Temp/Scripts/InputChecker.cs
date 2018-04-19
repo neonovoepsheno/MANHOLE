@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class InputChecker : BallBehaviour {
 
     private PlayerBehaviour playerBehavior;
-    private const float HOLD_TIME = 0.4f; 
+    private const float HOLD_TIME = 0.25f; 
     private float acumTime = 0;
 
     private void Start()
