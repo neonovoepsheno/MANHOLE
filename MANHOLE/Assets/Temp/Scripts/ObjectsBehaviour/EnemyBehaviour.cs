@@ -42,8 +42,8 @@ public class EnemyBehaviour : BallBehaviour
         {
             //Debug.Log("You lose");
 
-            //GUIScript.ShowLoseWindow();
-            //isLose = true;
+            GUIScript.ShowLoseWindow();
+            isLose = true;
             Destroy(gameObject);
         }
     }

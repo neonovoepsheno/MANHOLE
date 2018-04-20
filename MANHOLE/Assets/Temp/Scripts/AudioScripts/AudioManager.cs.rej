@@ -1,0 +1,16 @@
+diff a/MANHOLE/Assets/Temp/Scripts/AudioScripts/AudioManager.cs b/MANHOLE/Assets/Temp/Scripts/AudioScripts/AudioManager.cs	(rejected hunks)
+@@ -43,6 +43,14 @@
+ 
+     void Update()
+     {
++        if (isGameStart)
++        {
++            if (!audioSource.isPlaying)
++            {
++                GUIScript.ShowLoseWindow();
++                isLose = true;
++            }
++        }
+         ControlPitch();
+     }
+ 

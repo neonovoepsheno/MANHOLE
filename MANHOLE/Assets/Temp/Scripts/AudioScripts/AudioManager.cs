@@ -24,7 +24,6 @@ public class AudioManager : MainManager
             //}
         }
     }
-    public static bool isGameStart;
 
     static bool _isPause;
 
@@ -43,14 +42,6 @@ public class AudioManager : MainManager
 
     void Update()
     {
-        if (isGameStart)
-        {
-            if (!audioSource.isPlaying)
-            {
-                GUIScript.ShowLoseWindow();
-                isLose = true;
-            }
-        }
         ControlPitch();
     }
 
@@ -61,7 +52,6 @@ public class AudioManager : MainManager
         audioSource.pitch = aUsualPitch;
         IsPause = false;
         audioSource.Stop();
-        isGameStart = false;
     }
 
 
