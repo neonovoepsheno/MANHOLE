@@ -23,6 +23,7 @@ public class GUIHandler : MainManager
         startTime = GAME_TIME;
         GUIScript.EnableStartWindow(false);
         AudioManager.audioSource.Play();
+        AudioManager.isGameStart = true;
     }
 
     public static void OnPauseClick(PointerEventData data)
