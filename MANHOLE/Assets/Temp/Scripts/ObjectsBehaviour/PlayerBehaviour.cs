@@ -49,7 +49,7 @@ public class PlayerBehaviour : BallBehaviour
 
     void Update()
     {
-        if (!GUIScript.isGUIWindowEnable && GAME_TIME - startTime > TimeControlManager.startDelay)
+        if (!GUIScript.isGUIWindowEnable)
         {
             float temp_coef = Time.deltaTime * pCurrentSpeed * directionCoef;
             pTimeCounter += temp_coef;
