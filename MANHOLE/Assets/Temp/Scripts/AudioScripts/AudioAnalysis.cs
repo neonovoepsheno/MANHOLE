@@ -5,83 +5,82 @@ using UnityEngine;
 [RequireComponent (typeof(AudioSource))]
 public class AudioAnalysis : AudioManager
 {
-    private const int FREQ_BANDS_LENGTH = 8;
-    private const int SAMPLES_LENGTH = 512;
+    private const int SAMPLES_LENGTH = 1024;
 
-    private static float MAX_SOUND_COEF = 10;
-    private static float MIN_SOUND_COEF = 0.5f;
-
-    [SerializeField]
-    private float min;
-    [SerializeField]
-    private float delta;
+    private static float MAX_SOUND_COEF = 140f;
+    private static float MIN_SOUND_COEF = 50f;
 
     private static float[] samples = new float[SAMPLES_LENGTH];
-    private static float[] freqBand = new float[FREQ_BANDS_LENGTH];
-    private static float[] bandBuffer = new float[FREQ_BANDS_LENGTH];
-    private float[] bufferDecrease = new float[FREQ_BANDS_LENGTH];
+    private static float[] spectrum = new float[SAMPLES_LENGTH];
+    private static float fSample;
+  
+    private static float rmsValue, dbValue, pitchValue;
+    private float refValue = 0.1f;
+    private float threshold = 0.02f;
+
+    private void Start()
+    {
+        fSample = AudioSettings.outputSampleRate;
+    }
 
 
     private void Update()
     {
         GetSpectrumAudioSource();
         MakeFreqBands();
-        BandBuffer();
     }
 
 
     private void GetSpectrumAudioSource()
     {
-        audioSource.GetSpectrumData(samples, 0, FFTWindow.Blackman);
+        audioSource.GetOutputData(samples, 0);
+        audioSource.GetSpectrumData(spectrum, 0, FFTWindow.BlackmanHarris);
     }
 
 
     private void MakeFreqBands()
     {
-        int count = 0;
-
-        for (int i = 0; i < FREQ_BANDS_LENGTH; i++)
+        int i;
+        float sum = 0;
+        for (i = 0; i < SAMPLES_LENGTH; i++)
         {
-            float average = 0;
-            int sampleCounter = (int)(Mathf.Pow(2, i) * 2);
-
-            if (i == 7)
+            sum += Mathf.Pow(2, samples[i]);
+        }
+        rmsValue = Mathf.Sqrt(sum / SAMPLES_LENGTH);
+        dbValue = 20 * Mathf.Log10(rmsValue / refValue);
+        if (dbValue < -160)
+        {
+            dbValue = -160;
+        }
+        float maxV = 0;
+        int maxN = 0;
+        for (i = 0; i < SAMPLES_LENGTH; i++)
+        {
+            if (spectrum[i] > maxV && spectrum[i] > threshold)
             {
-                sampleCounter += 2;
+                maxV = spectrum[i];
+                maxN = i;
             }
-
-            for (int j = 0; j < sampleCounter; j++)
-            {
-                average += samples[count] * (count + 1);
-                count++;
-            }
-            average /= count;
-            freqBand[i] = average * 10;
+        }
+        float freqN = maxN;
+        float dR, dL;
+        if (maxN > 0 && maxN < SAMPLES_LENGTH - 1)
+        {
+            dL = spectrum[maxN - 1] / spectrum[maxN];
+            dR = spectrum[maxN + 1] / spectrum[maxN];
+            freqN += 0.5f * (dR * dR - dL * dL);
+        }
+        pitchValue = freqN * (fSample / 2) / SAMPLES_LENGTH;
+        if (pitchValue > 70 && pitchValue < 100)
+        {
+           //
         }
     }
 
 
-    private void BandBuffer()
+    public static float GetBandBuffer()
     {
-        for (int i = 0; i < FREQ_BANDS_LENGTH; i++)
-        {
-            if (freqBand[i] > bandBuffer[i])
-            {
-                bandBuffer[i] = freqBand[i];
-                bufferDecrease[i] = min;
-            }
-            else if (freqBand[i] < bandBuffer[i])
-            {
-                bandBuffer[i] -= bufferDecrease[i];
-                bufferDecrease[i] *= delta;
-            }
-        }
-    }
-
-
-    public static float[] GetBandBuffer()
-    {
-        return bandBuffer;
+        return pitchValue;
     }
 
 

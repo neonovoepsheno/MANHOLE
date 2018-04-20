@@ -32,18 +32,18 @@ public class AudioVisualization : BallBehaviour
 
     private void ChangeScale()
     {
-        float newScale = CountNewScaleValue(AudioAnalysis.GetBandBuffer()[bufferBandN]);
+        float newScale = CountNewScaleValue(AudioAnalysis.GetBandBuffer());
         this.transform.localScale = new Vector3(newScale, newScale, newScale);
     }
 
 
     private float CountNewScaleValue(float soundValue)
     {
-        if (soundValue > 10)
+        if (soundValue > AudioAnalysis.GetMaxSoundCoef())
         {
             return oMaxScale;
         }
-        else if (soundValue < 0.5)
+        else if (soundValue < AudioAnalysis.GetMinSoundCoef())
         {
             return oMinScale;
         }

@@ -28,8 +28,7 @@ public class EnemyGeneration : ObjectGeneration
     {
         if (GAME_TIME - lastEnemyGeneration > eGenerationDelay)
         {
-
-            Instantiate(enemyPrefabArray[(int)Random.Range(0f, enemyPrefabArray.Length - 1)], points[currentEnemyGenerationPoint].transform.position, Quaternion.identity);
+            Instantiate(enemyPrefabArray[(int)Random.Range(0f, enemyPrefabArray.Length - 1)], points[(int)Random.Range(0f, points.Length - 1)].transform.position, Quaternion.identity);
             lastEnemyGeneration = GAME_TIME;
             currentEnemyGenerationPoint = (currentEnemyGenerationPoint + 1) % points.Length;
             return;
