@@ -65,8 +65,10 @@ public class InputChecker : BallBehaviour {
         {
             if (acumTime < HOLD_TIME)
             {
-                //Debug.Log("Click");
-                playerBehavior.ChangePlayerDirection();
+                if (!SpiralMoving.IsPlayerOnSpiral())
+                {
+                    playerBehavior.ChangePlayerDirection();
+                }
             }
             acumTime = 0;
         }

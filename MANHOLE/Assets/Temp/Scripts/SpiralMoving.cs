@@ -31,4 +31,14 @@ public class SpiralMoving : BallBehaviour
         isSpiralStartAllowed = (GAME_TIME - PlayerBehaviour.spiralFinishTime > player.GetPlayerSpiralAllowedDelayTime());
         return isSpiralStartAllowed;
     }
+
+
+    public static bool IsPlayerOnSpiral()
+    {
+        if (player.GetCurrentPlayerRadius() < player.GetPlayerOuterRadius())
+        {
+            return true;
+        }
+        return false;
+    }
 }
