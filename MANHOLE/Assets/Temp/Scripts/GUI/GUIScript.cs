@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GUIScript : MainManager
 {
+    private static float spiralBarMaxValue = 5;
+
     static Text pointsText;
     static Text scoreText;
     static Text trackNameText;
@@ -18,6 +20,7 @@ public class GUIScript : MainManager
     public static GameObject bContinue;
     public static GameObject bPause;
 
+    public static Slider barSpiral;
 
     public static bool isGUIWindowEnable;
     public static bool isGUIWindowPauseEnable;
@@ -81,6 +84,9 @@ public class GUIScript : MainManager
 
     void InitializeValues()
     {
+        barSpiral = GameObject.Find("SpiralBar").GetComponent<Slider>();
+        barSpiral.value = spiralBarMaxValue;
+
         pointsText = GameObject.Find("GamePointsText").GetComponent<Text>();
         pointsText.text = "" + playerPoints;
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
@@ -105,5 +111,39 @@ public class GUIScript : MainManager
     static void EnableUIgo(bool enable)
     {
         bPause.SetActive(enable);
+        barSpiral.gameObject.SetActive(enable);
+    }
+
+
+    public static void ChangeSpiralBarValue(float delta)
+    {
+        if (barSpiral.value - delta > 0 || barSpiral.value - delta < spiralBarMaxValue)
+        {
+            barSpiral.value -= delta;
+        }
+        else if (barSpiral.value - delta < spiralBarMaxValue)
+        {
+            barSpiral.value = spiralBarMaxValue;
+        }
+        else if (barSpiral.value - delta > 0)
+        {
+            barSpiral.value = 0;
+        }
+    }
+
+
+    public static float GetSpiralBarMaxValue()
+    {
+        return spiralBarMaxValue;
+    }
+
+
+    public static bool CheckSpiralBarCondition()
+    {
+        if (barSpiral.value == 0)
+        {
+            return false;
+        }
+        return true;
     }
 }

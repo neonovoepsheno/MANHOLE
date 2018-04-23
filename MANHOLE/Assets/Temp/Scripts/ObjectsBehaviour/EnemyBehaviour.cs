@@ -37,6 +37,7 @@ public class EnemyBehaviour : BallBehaviour
             Destroy(gameObject);
             IncrementingPlayerPoints();
             GUIScript.UpdateGamePointsVisual();
+            GUIScript.ChangeSpiralBarValue(-1);
         }
         else if (coll.gameObject.tag == "Heart")
         {

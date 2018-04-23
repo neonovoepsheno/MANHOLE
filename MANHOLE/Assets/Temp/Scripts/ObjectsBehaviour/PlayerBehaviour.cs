@@ -32,6 +32,7 @@ public class PlayerBehaviour : BallBehaviour
 
     private float pTimeCounter;
     private float pCurrentSpeed;
+    private float spiralBarVisualDelta;
     private float x;
     private float y;
     
@@ -67,6 +68,7 @@ public class PlayerBehaviour : BallBehaviour
         pCurrentSpeed = 0;
         spiralStartTime = 0;
         spiralFinishTime = 0;
+        spiralBarVisualDelta = (GUIScript.GetSpiralBarMaxValue() * pSpiralSpeed) / pOuterRadius;
 
         pScaleCoefArray = new float[2];
         LinearCoefSelection(startScale.x, pInnerScale, pOuterRadius, pInnerRadius, pScaleCoefArray);
@@ -96,6 +98,7 @@ public class PlayerBehaviour : BallBehaviour
             {
                 UpdateProperty(new_radius);
             }
+            GUIScript.ChangeSpiralBarValue(spiralBarVisualDelta);
         }
         x = Mathf.Cos(pTimeCounter)  * radius;
         y = Mathf.Sin(pTimeCounter) * radius;

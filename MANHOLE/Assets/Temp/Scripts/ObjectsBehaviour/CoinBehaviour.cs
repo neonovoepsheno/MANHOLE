@@ -31,6 +31,7 @@ public class CoinBehaviour : MainManager
             Destroy(gameObject);
             IncrementingPlayerPoints();
             GUIScript.UpdateGamePointsVisual();
+            GUIScript.ChangeSpiralBarValue(-1);
         }
     }
 }

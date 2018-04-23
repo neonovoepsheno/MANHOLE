@@ -32,6 +32,7 @@ public class AbilityBehaviour : MainManager
         {
             Destroy(gameObject);
             Debug.Log("You use " + abilityID);
+            GUIScript.ChangeSpiralBarValue(-1);
         }
     }
 }
