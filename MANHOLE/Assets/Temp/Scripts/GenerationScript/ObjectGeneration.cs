@@ -41,7 +41,7 @@ public class ObjectGeneration : MainManager
 
     protected bool IsAudioSignalCondition()
     {
-        float soundValue = AudioAnalysis.GetBandBuffer();
+        float soundValue = AudioAnalysis.GetPitchValue();
         return soundValue >= minBufferBandGenerationObj;
     }
 
