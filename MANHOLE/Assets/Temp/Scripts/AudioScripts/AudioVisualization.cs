@@ -47,7 +47,8 @@ public class AudioVisualization : BallBehaviour
     {
         if (soundValue > AudioAnalysis.GetMaxSoundCoef())
         {
-            return GetScaleSoundHigher(soundValue);
+            //return GetScaleSoundHigher(soundValue);
+            return 0;
         }
         else if (soundValue < AudioAnalysis.GetMinSoundCoef())
         {

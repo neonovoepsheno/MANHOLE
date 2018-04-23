@@ -1691,7 +1691,7 @@ MonoBehaviour:
   - {fileID: 333790824}
   enemyPrefabArray:
   - {fileID: 1995327100639648, guid: c424eece62823db41a503b56c9901c50, type: 2}
-  eGenerationDelay: 1.5
+  eGenerationDelay: 1
 --- !u!1 &1501237010
 GameObject:
   m_ObjectHideFlags: 0
