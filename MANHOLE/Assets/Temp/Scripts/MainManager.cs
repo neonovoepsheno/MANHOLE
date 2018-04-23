@@ -14,6 +14,7 @@ public class MainManager : MonoBehaviour
     protected static int playerPoints;
     protected static bool isLose;
     protected static float startTime;
+    protected static string restartPlayerPref = "IfFromRestart";
 
 
     private void Start()
@@ -28,5 +29,11 @@ public class MainManager : MonoBehaviour
     protected static void IncrementingPlayerPoints()
     {
         playerPoints++;
+    }
+
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt(restartPlayerPref, 0);
     }
 }

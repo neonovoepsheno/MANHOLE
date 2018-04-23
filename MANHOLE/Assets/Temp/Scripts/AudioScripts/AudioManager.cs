@@ -103,4 +103,10 @@ public class AudioManager : MainManager
         audioSource.timeSamples = timeSamples;
         audioSource.Play();
     }
+
+
+    public static string GetTrackName()
+    {
+        return audioSource.clip.name;
+    }
 }

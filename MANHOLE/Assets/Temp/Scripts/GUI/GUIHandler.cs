@@ -15,6 +15,7 @@ public class GUIHandler : MainManager
 
     public static void OnRestartClick(PointerEventData data)
     {
+        PlayerPrefs.SetInt(restartPlayerPref, 1);
         SceneManager.LoadScene("main");
     }
 

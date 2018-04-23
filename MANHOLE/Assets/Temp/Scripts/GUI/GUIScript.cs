@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class GUIScript : MainManager
 {
     static Text pointsText;
-   
+    static Text scoreText;
+    static Text trackNameText;
+
     static GameObject losePanel;
     static GameObject startPanel;
     static GameObject pausePanel;
@@ -41,11 +43,24 @@ public class GUIScript : MainManager
         isGUIWindowEnable = true;
         losePanel.SetActive(true);
         EnableUIgo(false);
+        scoreText.text = "Score: " + playerPoints;
+        trackNameText.text = AudioManager.GetTrackName();
     }
 
 
     public static void EnableStartWindow(bool shouldEnable)
     {
+        if (shouldEnable)
+        {
+            if (PlayerPrefs.GetInt(restartPlayerPref) != null && PlayerPrefs.GetInt(restartPlayerPref) == 1)
+            {
+                startTime = GAME_TIME;
+                GUIScript.EnableStartWindow(false);
+                AudioManager.audioSource.Play();
+                AudioManager.isGameStart = true;
+                return;
+            }
+        }
         isGUIWindowEnable = shouldEnable;
         startPanel.SetActive(shouldEnable);
         EnableUIgo(!shouldEnable);
@@ -68,6 +83,8 @@ public class GUIScript : MainManager
     {
         pointsText = GameObject.Find("GamePointsText").GetComponent<Text>();
         pointsText.text = "" + playerPoints;
+        scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+        trackNameText = GameObject.Find("TrackName").GetComponent<Text>();
 
         losePanel = GameObject.Find("LosePanel");
         pausePanel = GameObject.Find("PausePanel");
