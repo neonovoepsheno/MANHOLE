@@ -432,7 +432,7 @@ MonoBehaviour:
   pOuterRadius: 1.3
   pInnerRadius: 0.45
   pSpiralAllowedTime: 2
-  pSpiralAllowedDelayTime: 1
+  pSpiralAllowedDelayTime: 0.7
 --- !u!58 &429237755
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -956,8 +956,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aUsualPitch: 1
   aMinPitch: 0.7
-  min: 0.15
-  delta: 1.09
 --- !u!82 &597645522
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1693,7 +1691,7 @@ MonoBehaviour:
   - {fileID: 333790824}
   enemyPrefabArray:
   - {fileID: 1995327100639648, guid: c424eece62823db41a503b56c9901c50, type: 2}
-  eGenerationDelay: 1
+  eGenerationDelay: 1.5
 --- !u!1 &1501237010
 GameObject:
   m_ObjectHideFlags: 0
@@ -2001,7 +1999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bufferBandN: 1
-  oChangeScaleCoef: 0.2
+  oChangeScaleCoef: 0.08
 --- !u!1 &1915360173
 GameObject:
   m_ObjectHideFlags: 0
