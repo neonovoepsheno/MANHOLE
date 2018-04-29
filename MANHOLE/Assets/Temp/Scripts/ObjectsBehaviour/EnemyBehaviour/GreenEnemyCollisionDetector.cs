@@ -7,7 +7,7 @@ public class GreenEnemyCollisionDetector : BallBehaviour
     [SerializeField]
     private GameObject plusOne;
     [SerializeField]
-    private int yeGivenPoints;
+    private int geGivenPoints;
 
     GreenEnemyBehaviour parent;
     int maxTouches = 2;
@@ -37,7 +37,7 @@ public class GreenEnemyCollisionDetector : BallBehaviour
         if (parent.GetNumPlayersTouch() == maxTouches)
         {
             Instantiate(plusOne, transform.position, Quaternion.identity);
-            IncrementingPlayerPoints(yeGivenPoints);
+            IncrementingPlayerPoints(geGivenPoints);
             IncrementingPlayerCombo(1);
             GUIScript.gui.UpdateGamePointsVisual();
             GUIScript.gui.UpdateComboVisual();

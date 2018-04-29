@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlackEnemyCollisionDetector : BallBehaviour
+public class RedEnemyCollosionDetector : BallBehaviour
 {
     [SerializeField]
     private GameObject plusOne;
     [SerializeField]
-    private int beGivenPoints;
+    private int reGivenPoints;
 
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -21,11 +21,10 @@ public class BlackEnemyCollisionDetector : BallBehaviour
         }
     }
 
-
     void TouchPlayer()
     {
         Instantiate(plusOne, transform.position, Quaternion.identity);
-        IncrementingPlayerPoints(beGivenPoints);
+        IncrementingPlayerPoints(reGivenPoints);
         IncrementingPlayerCombo(1);
         GUIScript.gui.UpdateGamePointsVisual();
         GUIScript.gui.UpdateComboVisual();

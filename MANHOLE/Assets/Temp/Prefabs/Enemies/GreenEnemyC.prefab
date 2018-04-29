@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plusOne: {fileID: 1363811636811422, guid: 6affe1a12f594ae40987b4a224d03298, type: 2}
-  yeGivenPoints: 3
+  geGivenPoints: 3
 --- !u!114 &114887938909590918
 MonoBehaviour:
   m_ObjectHideFlags: 1

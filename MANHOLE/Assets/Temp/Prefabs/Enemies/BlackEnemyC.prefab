@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plusOne: {fileID: 1363811636811422, guid: 6affe1a12f594ae40987b4a224d03298, type: 2}
-  yeGivenPoints: 2
+  beGivenPoints: 2
 --- !u!212 &212913884185396178
 SpriteRenderer:
   m_ObjectHideFlags: 1

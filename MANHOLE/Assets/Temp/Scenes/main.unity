@@ -2635,7 +2635,7 @@ MonoBehaviour:
   - {fileID: 1347256645}
   enemyPrefabArray:
   - {fileID: 1172331742466988, guid: 1885a4afd8ef9f84aa6e2397269ef0a8, type: 2}
-  - {fileID: 1995327100639648, guid: c424eece62823db41a503b56c9901c50, type: 2}
+  - {fileID: 1711297630657596, guid: fca5989b851629a4da1ed24e8e885324, type: 2}
   - {fileID: 1256495238195358, guid: 9f301a095f80aad408f4ffde77335c5d, type: 2}
   eGenerationDelay: 1.45
 --- !u!1 &1501237010
