@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InputChecker : BallBehaviour {
 
     private PlayerBehaviour playerBehavior;
-    private const float HOLD_TIME = 0.4f; 
+    private const float HOLD_TIME = 0.25f; 
     private float acumTime = 0;
 
     private void Start()
@@ -38,12 +39,12 @@ public class InputChecker : BallBehaviour {
 
     void CheckLongPress()
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && IsValidInput())
         {
-            if (SpiralMoving.isSpiralStartAllowed)
+            acumTime += Time.deltaTime;
+            if (acumTime >= HOLD_TIME)
             {
-                acumTime += Time.deltaTime;
-                if (acumTime >= HOLD_TIME)
+                if (SpiralMoving.isSpiralStartAllowed)
                 {
                     if (!SpiralMoving.isSpiral)
                     {
@@ -56,16 +57,19 @@ public class InputChecker : BallBehaviour {
                     {
                         SpiralMoving.isSpiral = SpiralMoving.IsSpiralAllowed();
                     }
-                    return;
                 }
+                return;
             }
+
         }
-        else if (Input.GetButtonUp("Fire1"))
+        else if (Input.GetButtonUp("Fire1") && IsValidInput())
         {
             if (acumTime < HOLD_TIME)
             {
-                //Debug.Log("Click");
-                playerBehavior.ChangePlayerDirection();
+                if (!SpiralMoving.IsPlayerOnSpiral())
+                {
+                    playerBehavior.ChangePlayerDirection();
+                }
             }
             acumTime = 0;
         }
@@ -74,5 +78,13 @@ public class InputChecker : BallBehaviour {
             PlayerBehaviour.spiralFinishTime = GAME_TIME;
         }
         SpiralMoving.isSpiral = false;
+    }
+
+    bool IsValidInput()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return false;
+        else
+            return true;
     }
 }

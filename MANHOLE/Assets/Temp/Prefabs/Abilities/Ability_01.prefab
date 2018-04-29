@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114788769635322690}
   m_Layer: 10
   m_Name: Ability_01
-  m_TagString: Ability
+  m_TagString: Ability_01
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,8 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731feb71670a22047886c1f63d462350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bufferBandN: 1
-  oChangeScaleCoef: 0.2
+  oChangeScaleCoef: 0.08
 --- !u!114 &114788769635322690
 MonoBehaviour:
   m_ObjectHideFlags: 1

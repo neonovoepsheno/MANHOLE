@@ -21,23 +21,28 @@ public class PlayerBehaviour : BallBehaviour
     [SerializeField]
     private float pInnerRadius;
     [SerializeField]
-    private float pStartDelay;
-    [SerializeField]
     private float pSpiralAllowedTime;
     [SerializeField]
     private float pSpiralAllowedDelayTime;
+	[SerializeField]
+	private float pOuterScale;
 
     private static int directionCoef = 1;
 
     private float radius;
-    private Vector3 startScale;
 
     private float pTimeCounter;
     private float pCurrentSpeed;
+    private float spiralBarVisualDelta;
+    private float innerScale;
+    private float outerScale;
     private float x;
     private float y;
-    
-	private float[] pSpeedSpiralCoefArray;
+
+	private Vector3 hPosition;
+    private Vector3 startScale;
+
+    private float[] pSpeedSpiralCoefArray;
     private float[] pScaleCoefArray;
     
     public static float spiralStartTime;
@@ -51,7 +56,7 @@ public class PlayerBehaviour : BallBehaviour
 
     void Update()
     {
-        if (!GUIScript.isGUIWindowEnable && GAME_TIME > pStartDelay)
+        if (!GUIScript.isGUIWindowEnable)
         {
             float temp_coef = Time.deltaTime * pCurrentSpeed * directionCoef;
             pTimeCounter += temp_coef;
@@ -64,16 +69,21 @@ public class PlayerBehaviour : BallBehaviour
     {
         pTimeCounter = 0;
         startScale = transform.localScale;
+        innerScale = pInnerScale * transform.localScale.x;
+        outerScale = pOuterScale * transform.localScale.x;
         radius = pOuterRadius;
         isLose = false;
         pCurrentSpeed = 0;
         spiralStartTime = 0;
         spiralFinishTime = 0;
+		hPosition = target.transform.position;
 
         pScaleCoefArray = new float[2];
-        LinearCoefSelection(startScale.x, pInnerScale, pOuterRadius, pInnerRadius, pScaleCoefArray);
+        LinearCoefSelection(pOuterRadius, pInnerRadius, startScale.x, innerScale, pScaleCoefArray);
         pSpeedSpiralCoefArray = new float[2];
-        LinearCoefSelection(pOuterSpeedSpiral, pInnerSpeed, pOuterRadius, pInnerRadius, pSpeedSpiralCoefArray);
+        LinearCoefSelection(pOuterRadius, pInnerRadius, pOuterSpeedSpiral, pInnerSpeed, pSpeedSpiralCoefArray);
+
+		transform.localScale = new Vector3 (outerScale, outerScale, outerScale);
     }
 
 
@@ -98,11 +108,12 @@ public class PlayerBehaviour : BallBehaviour
             {
                 UpdateProperty(new_radius);
             }
+            GUIScript.gui.ChangeSpiralBarValue((GUIScript.gui.GetSpiralBarMaxValue() * pSpiralSpeed) / pOuterRadius);
         }
         x = Mathf.Cos(pTimeCounter)  * radius;
         y = Mathf.Sin(pTimeCounter) * radius;
      
-        transform.position = new Vector3(x, y, 0);
+		transform.position = new Vector3(x + hPosition.x, y + hPosition.y, 0);
     }
 
 

@@ -5,49 +5,53 @@ using UnityEngine.SceneManagement;
 
 public class GUIHandler : MainManager
 {
-    static GameObject bRestart;
-    static GameObject bStart;
-    static GameObject bContinue;
-    static GameObject bPause;
-
-    public static void InitGUIButtons()
+    public static void SetTriggersButtons()
     {
-        bRestart = GameObject.Find("bRestart");
-        SetTrigger(bRestart, OnRestartClick, "bRestart");
-
-        bStart = GameObject.Find("bStart");
-        SetTrigger(bStart, OnStartClick, "bStart");
-
-        bPause = GameObject.Find("bPause");
-        SetTrigger(bPause, OnPauseClick, "bPause");
-
-        bContinue = GameObject.Find("bContinue");
-        SetTrigger(bContinue, OnContinueClick, "bContinue");
+        SetTrigger(GUIScript.bRestart, OnRestartClick, "bRestart");
+        SetTrigger(GUIScript.bStart, OnStartClick, "bStart");
+        SetTrigger(GUIScript.bPause, OnPauseClick, "bPause");
+        SetTrigger(GUIScript.bContinue, OnContinueClick, "bContinue");
+        SetTrigger(GUIScript.bExit, OnExitClick, "bExit");
     }
+
 
     public static void OnRestartClick(PointerEventData data)
     {
+        GUIScript.gui.SaveRestartState(true);
         SceneManager.LoadScene("main");
     }
 
+
+    public static void OnExitClick(PointerEventData data)
+    {
+        Application.Quit();
+    }
+
+
     public static void OnStartClick(PointerEventData data)
     {
-        GUIScript.EnableStartWindow(false);
+        startTime = GAME_TIME;
+        GUIScript.gui.EnableStartWindow(false);
+        AudioManager.audioSource.Play();
+        AudioManager.isGameStart = true;
     }
+
 
     public static void OnPauseClick(PointerEventData data)
     {
-        if (!GUIScript.isGUIWindowEnable)
-        {
-            GUIScript.EnablePauseWindow(true);
-        }
+        GUIScript.gui.EnablePauseWindow(true);
+        AudioManager.IsPause = true;
+        TimeControlManager.isPause = true;
     }
 
 
     public static void OnContinueClick(PointerEventData data)
     {
-        GUIScript.EnablePauseWindow(false);
+        GUIScript.gui.EnablePauseWindow(false);
+        AudioManager.IsPause = false;
+        TimeControlManager.isPause = false;
     }
+
 
     static void SetTrigger(GameObject goButton, Action<PointerEventData> func, string name)
     {

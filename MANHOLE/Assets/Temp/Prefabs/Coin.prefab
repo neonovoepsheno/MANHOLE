@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bufferBandN: 1
-  oChangeScaleCoef: 0.2
+  oChangeScaleCoef: 0.08
 --- !u!212 &212390228447864508
 SpriteRenderer:
   m_ObjectHideFlags: 1
