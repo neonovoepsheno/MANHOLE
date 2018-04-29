@@ -33,11 +33,21 @@ public class AudioManager : MainManager
     [SerializeField]
     private float aMinPitch;
 
-    static int pausedTimeSamples = 0;
+    //static int pausedTimeSamples = 0;
+
+    public static AudioManager aManager = null;
 
     void Start()
     {
-        SetInitValues();
+        if (aManager == null)
+        {
+            aManager = this;
+            SetInitValues();
+        }
+        else if (aManager == this)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
@@ -47,7 +57,7 @@ public class AudioManager : MainManager
         {
             if (!audioSource.isPlaying)
             {
-                GUIScript.ShowLoseWindow();
+                GUIScript.gui.ShowLoseWindow();
                 isLose = true;
             }
         }
@@ -85,13 +95,32 @@ public class AudioManager : MainManager
         }
         else
         {
-            if (audioSource.pitch < aUsualPitch)
+            if (!SlowMotionAbility.ability.IsAbilityActive())
             {
-                audioSource.pitch += aUsualPitch * TimeControlManager.timeToDecrease;
+                if (audioSource.pitch < aUsualPitch)
+                {
+                    audioSource.pitch += aUsualPitch * TimeControlManager.timeToDecrease;
+                }
+                else if (audioSource.pitch > aUsualPitch)
+                {
+                    audioSource.pitch = aUsualPitch;
+                }
             }
-            else if (audioSource.pitch > aUsualPitch)
+        }
+    }
+
+
+    public void CreateSlowMotionEffect()
+    {
+        if (!_isPause)
+        {
+            if (audioSource.pitch > SlowMotionAbility.ability.GetMusicSlowCoef())
             {
-                audioSource.pitch = aUsualPitch;
+                audioSource.pitch -= aUsualPitch * TimeControlManager.timeToDecrease;
+            }
+            if (audioSource.pitch < SlowMotionAbility.ability.GetMusicSlowCoef())
+            {
+                audioSource.pitch = SlowMotionAbility.ability.GetMusicSlowCoef();
             }
         }
     }

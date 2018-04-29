@@ -5,10 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Heart
-  - Ability
   - Coin
   - Arena
   - Enemy
+  - Ability_01
+  - Ability_02
+  - Ability_03
   layers:
   - Default
   - TransparentFX

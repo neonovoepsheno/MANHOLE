@@ -20,7 +20,7 @@ public class SpiralMoving : BallBehaviour
 
         if (SpiralMoving.isSpiral)
         {
-            if (GAME_TIME - PlayerBehaviour.spiralStartTime > player.GetPlayerSpiralAllowedTime() || !GUIScript.CheckSpiralBarCondition())
+            if (GAME_TIME - PlayerBehaviour.spiralStartTime > player.GetPlayerSpiralAllowedTime() || !GUIScript.gui.CheckSpiralBarCondition())
             {
                 PlayerBehaviour.spiralFinishTime = GAME_TIME;
                 return false;
@@ -32,7 +32,7 @@ public class SpiralMoving : BallBehaviour
 
     public static bool IsSpiralStartAllowed()
     {
-        isSpiralStartAllowed = (GAME_TIME - PlayerBehaviour.spiralFinishTime > player.GetPlayerSpiralAllowedDelayTime() && GUIScript.CheckSpiralBarCondition());
+        isSpiralStartAllowed = (GAME_TIME - PlayerBehaviour.spiralFinishTime > player.GetPlayerSpiralAllowedDelayTime() && GUIScript.gui.CheckSpiralBarCondition());
         return isSpiralStartAllowed;
     }
 

@@ -29,9 +29,8 @@ public class CoinBehaviour : MainManager
         if (coll.gameObject.tag == "Player")
         {
             Destroy(gameObject);
-            IncrementingPlayerPoints();
-            GUIScript.UpdateGamePointsVisual();
-            GUIScript.ChangeSpiralBarValue(-1);
+            IncrementingPlayerPoints(5);
+            GUIScript.gui.UpdateGamePointsVisual();
         }
     }
 }

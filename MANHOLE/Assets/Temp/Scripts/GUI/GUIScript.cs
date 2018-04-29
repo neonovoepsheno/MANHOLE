@@ -10,6 +10,7 @@ public class GUIScript : MainManager
     static Text pointsText;
     static Text scoreText;
     static Text trackNameText;
+    protected static Text comboText;
 
     static GameObject losePanel;
     static GameObject startPanel;
@@ -19,29 +20,35 @@ public class GUIScript : MainManager
     public static GameObject bStart;
     public static GameObject bContinue;
     public static GameObject bPause;
+    public static GameObject bExit;
 
     public static Slider barSpiral;
+
+    static Toggle deathModeChecker;
+
+    GUIComboVisual guiCombo;
 
     public static bool isGUIWindowEnable;
     public static bool isGUIWindowPauseEnable;
 
+    float spiralBarDeltaCounts;
 
-    void Start()
+
+    public void UpdateGamePointsVisual()
     {
-        InitializeValues();
-        EnableStartWindow(true);
-        GUIHandler.SetTriggersButtons();
-        DisablePanels();
-    }
-
-
-    public static void UpdateGamePointsVisual()
-    {
+        bool playerPointsCondition = playerPoints != 0;
+        pointsText.gameObject.SetActive(playerPointsCondition);
         pointsText.text = "" + playerPoints;
     }
 
 
-    public static void ShowLoseWindow()
+    public void UpdateComboVisual()
+    {
+        guiCombo.UpdateVisual();
+    }
+
+
+    public void ShowLoseWindow()
     {
         isGUIWindowEnable = true;
         losePanel.SetActive(true);
@@ -51,14 +58,14 @@ public class GUIScript : MainManager
     }
 
 
-    public static void EnableStartWindow(bool shouldEnable)
+    public void EnableStartWindow(bool shouldEnable)
     {
         if (shouldEnable)
         {
-            if (PlayerPrefs.GetInt(restartPlayerPref) != null && PlayerPrefs.GetInt(restartPlayerPref) == 1)
+            if (PlayerPrefs.GetInt(restartPlayerPref) == 1)
             {
                 startTime = GAME_TIME;
-                GUIScript.EnableStartWindow(false);
+                GUIScript.gui.EnableStartWindow(false);
                 AudioManager.audioSource.Play();
                 AudioManager.isGameStart = true;
                 return;
@@ -67,10 +74,11 @@ public class GUIScript : MainManager
         isGUIWindowEnable = shouldEnable;
         startPanel.SetActive(shouldEnable);
         EnableUIgo(!shouldEnable);
+        GUIScript.gui.SaveRestartState(false);
     }
 
 
-    public static void EnablePauseWindow(bool shouldEnable)
+    public  void EnablePauseWindow(bool shouldEnable)
     {
         //isGUIWindowEnable = shouldEnable;
         if (shouldEnable)
@@ -88,9 +96,9 @@ public class GUIScript : MainManager
         barSpiral.value = spiralBarMaxValue;
 
         pointsText = GameObject.Find("GamePointsText").GetComponent<Text>();
-        pointsText.text = "" + playerPoints;
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         trackNameText = GameObject.Find("TrackName").GetComponent<Text>();
+        comboText = GameObject.Find("ComboText").GetComponent<Text>();
 
         losePanel = GameObject.Find("LosePanel");
         pausePanel = GameObject.Find("PausePanel");
@@ -100,7 +108,16 @@ public class GUIScript : MainManager
         bStart = GameObject.Find("bStart");
         bPause = GameObject.Find("bPause");
         bContinue = GameObject.Find("bContinue");
+        bExit = GameObject.Find("bExit");
+
+        deathModeChecker = GameObject.Find("DeathModeChecker").GetComponent<Toggle>();
+        deathModeChecker.isOn = false;
+
+        guiCombo = comboText.GetComponent<GUIComboVisual>();
+        spiralBarDeltaCounts = guiCombo.GetMin() - 1;
+        guiCombo.InitVal();
     }
+
 
     void DisablePanels()
     {
@@ -108,14 +125,15 @@ public class GUIScript : MainManager
         pausePanel.SetActive(false);
     }
 
-    static void EnableUIgo(bool enable)
+
+    void EnableUIgo(bool enable)
     {
         bPause.SetActive(enable);
         barSpiral.gameObject.SetActive(enable);
     }
 
 
-    public static void ChangeSpiralBarValue(float delta)
+    public void ChangeSpiralBarValue(float delta)
     {
         if (barSpiral.value - delta > 0 || barSpiral.value - delta < spiralBarMaxValue)
         {
@@ -132,18 +150,83 @@ public class GUIScript : MainManager
     }
 
 
-    public static float GetSpiralBarMaxValue()
+    public void SetSpiralBarValue(float value)
+    {
+        if (value >= 0 && value <= spiralBarMaxValue)
+        {
+            barSpiral.value = value;
+        }
+    }
+
+
+    public float GetSpiralBarMaxValue()
     {
         return spiralBarMaxValue;
     }
 
 
-    public static bool CheckSpiralBarCondition()
+    public bool CheckSpiralBarCondition()
     {
         if (barSpiral.value == 0)
         {
             return false;
         }
         return true;
+    }
+
+
+    public void SaveRestartState(bool is_restart)
+    {
+        if (is_restart)
+        {
+            PlayerPrefs.SetInt(restartPlayerPref, 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(restartPlayerPref, 0);
+        }
+    }
+
+
+    public bool GetDeathModeToggleValue()
+    {
+        return deathModeChecker.isOn;
+    }
+
+
+    public int GetComboDelta()
+    {
+        if (playerCombo >= guiCombo.GetMin())
+        {
+            //return (int)(playerCombo - spiralBarDeltaCounts);
+            return 1;
+        }
+        return 0;
+    }
+
+    //singleton
+    public static GUIScript gui = null;
+
+    void Start()
+    {
+        if (gui == null)
+        {
+            gui = this;
+            InitializeValues();
+            gui.UpdateGamePointsVisual();
+            gui.UpdateComboVisual();
+            gui.EnableStartWindow(true);
+            GUIHandler.SetTriggersButtons();
+            DisablePanels();
+        }
+        else if (gui == this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void Update()
+    {
+        guiCombo.CheckComboAnimator();
     }
 }

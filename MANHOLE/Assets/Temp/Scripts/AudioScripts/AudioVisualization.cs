@@ -5,13 +5,13 @@ using UnityEngine;
 public class AudioVisualization : BallBehaviour
 {
     [SerializeField]
-    private int bufferBandN;
-    [SerializeField]
     private float oChangeScaleCoef;
 
     private Vector3 oCurrentScale;
+
     private float oMaxScale;
     private float oMinScale;
+
     private float[] pScaleCoefArray;
     private float[] tempScaleCoefArray;
 
@@ -19,10 +19,10 @@ public class AudioVisualization : BallBehaviour
     {
         oCurrentScale = this.transform.localScale;
         oMaxScale = oCurrentScale.x * oChangeScaleCoef + oCurrentScale.x;
-        oMinScale = oCurrentScale.x - oCurrentScale.x * oChangeScaleCoef;
+        oMinScale = oCurrentScale.x - oCurrentScale.x * oChangeScaleCoef; 
         tempScaleCoefArray = new float[2];
         pScaleCoefArray = new float[2];
-        LinearCoefSelection(oMaxScale, oMinScale, AudioAnalysis.GetMaxSoundCoef(), AudioAnalysis.GetMinSoundCoef(), pScaleCoefArray);
+        LinearCoefSelection(AudioAnalysis.GetMaxSoundCoef(), AudioAnalysis.GetMinSoundCoef(), oMaxScale, oMinScale, pScaleCoefArray);
     }
 
 
@@ -73,7 +73,7 @@ public class AudioVisualization : BallBehaviour
         }
         highBorder = (int)x * maxSoundCoef;
         lowBorder = (int)x * minSoundCoef;
-        LinearCoefSelection(oMaxScale, oMinScale, highBorder, lowBorder, tempScaleCoefArray);
+        LinearCoefSelection(highBorder, lowBorder, oMaxScale, oMinScale, tempScaleCoefArray);
         return UpdateValueWithLinearCoef(tempScaleCoefArray, soundValue);
     }
 }

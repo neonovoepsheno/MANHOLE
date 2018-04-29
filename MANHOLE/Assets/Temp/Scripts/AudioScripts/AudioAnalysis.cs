@@ -14,7 +14,7 @@ public class AudioAnalysis : AudioManager
     private static float[] spectrum = new float[SAMPLES_LENGTH];
     private static float fSample;
   
-    private static float rmsValue, dbValue, pitchValue;
+    private static float rmsValue, dbValue, pitchValue, pitchValueBuffered, bufferDecrease;
     private float refValue = 0.1f;
     private float threshold = 0.02f;
 
@@ -52,6 +52,7 @@ public class AudioAnalysis : AudioManager
         {
             dbValue = -160;
         }
+
         float maxV = 0;
         int maxN = 0;
         for (i = 0; i < SAMPLES_LENGTH; i++)
@@ -70,14 +71,28 @@ public class AudioAnalysis : AudioManager
             dR = spectrum[maxN + 1] / spectrum[maxN];
             freqN += 0.5f * (dR * dR - dL * dL);
         }
-        pitchValue = freqN * (fSample / 2) / SAMPLES_LENGTH;       
+        pitchValue = freqN * (fSample / 2) / SAMPLES_LENGTH;
     }
 
 
     public static float GetPitchValue()
     {
-        return pitchValue;
+		return GetPitchValueBuffered();
     }
+
+
+	private static float GetPitchValueBuffered()
+	{
+		if (pitchValue > pitchValueBuffered) {
+			pitchValueBuffered = pitchValue;
+			bufferDecrease = 0.005f;
+		} 
+		if (pitchValue < pitchValueBuffered) {
+			pitchValueBuffered -= bufferDecrease;
+			bufferDecrease *= 2f;
+		}
+		return pitchValue;
+	}
 
 
     public static float GetMaxSoundCoef()

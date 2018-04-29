@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class BallBehaviour : MainManager
 {
-    protected void LinearCoefSelection(float startValueProperty, float endValueProperty, float startValue, float endValue, float[] coefArray)
+    protected void LinearCoefSelection(float x1, float y1, float x2, float y2, float[] coefArray)
     {
-        float val_first, val_second, val_third;
-        val_first = startValue - endValue;
-        val_second = startValueProperty - endValueProperty;
-        val_third = startValue * endValueProperty - endValue * startValueProperty;
-        coefArray[0] = val_second / val_first;
-        coefArray[1] = val_third / val_first;
+        float val_first, val_second, val;
+        val = x1 - y1;
+        val_first = x2 - y2;
+        val_second = x1 * y2 - x2 * y1;
+        coefArray[0] = val_first / val;
+        coefArray[1] = val_second / val;
     }
 
 

@@ -11,25 +11,35 @@ public class GUIHandler : MainManager
         SetTrigger(GUIScript.bStart, OnStartClick, "bStart");
         SetTrigger(GUIScript.bPause, OnPauseClick, "bPause");
         SetTrigger(GUIScript.bContinue, OnContinueClick, "bContinue");
+        SetTrigger(GUIScript.bExit, OnExitClick, "bExit");
     }
+
 
     public static void OnRestartClick(PointerEventData data)
     {
-        PlayerPrefs.SetInt(restartPlayerPref, 1);
+        GUIScript.gui.SaveRestartState(true);
         SceneManager.LoadScene("main");
     }
+
+
+    public static void OnExitClick(PointerEventData data)
+    {
+        Application.Quit();
+    }
+
 
     public static void OnStartClick(PointerEventData data)
     {
         startTime = GAME_TIME;
-        GUIScript.EnableStartWindow(false);
+        GUIScript.gui.EnableStartWindow(false);
         AudioManager.audioSource.Play();
         AudioManager.isGameStart = true;
     }
 
+
     public static void OnPauseClick(PointerEventData data)
     {
-        GUIScript.EnablePauseWindow(true);
+        GUIScript.gui.EnablePauseWindow(true);
         AudioManager.IsPause = true;
         TimeControlManager.isPause = true;
     }
@@ -37,10 +47,11 @@ public class GUIHandler : MainManager
 
     public static void OnContinueClick(PointerEventData data)
     {
-        GUIScript.EnablePauseWindow(false);
+        GUIScript.gui.EnablePauseWindow(false);
         AudioManager.IsPause = false;
         TimeControlManager.isPause = false;
     }
+
 
     static void SetTrigger(GameObject goButton, Action<PointerEventData> func, string name)
     {

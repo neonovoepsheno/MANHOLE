@@ -41,7 +41,7 @@ public class CoinGeneration : ObjectGeneration
 
     private void GenerateCoin()
     {
-        Vector3 generationPosition = Random.insideUnitCircle * arenaRadius;
+        Vector3 generationPosition = (Random.insideUnitCircle * arenaRadius) + (Vector2)arena.transform.position;
         GameObject coin = Instantiate(coinPrefab, generationPosition, Quaternion.identity);
         lastCoinGeneration = GAME_TIME;
         DestroiyObjectOnCollision(coin, "Coin", generationPosition);

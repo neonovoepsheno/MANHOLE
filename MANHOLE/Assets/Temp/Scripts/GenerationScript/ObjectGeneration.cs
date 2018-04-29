@@ -6,10 +6,6 @@ public class ObjectGeneration : MainManager
 {
     [SerializeField]
     protected GameObject arena;
-    [SerializeField]
-    private int bufferBandN;
-    [SerializeField]
-    private float minBufferBandGenerationObj;
 
     protected float arenaRadius;
 
@@ -42,7 +38,7 @@ public class ObjectGeneration : MainManager
     protected bool IsAudioSignalCondition()
     {
         float soundValue = AudioAnalysis.GetPitchValue();
-        return soundValue >= minBufferBandGenerationObj;
+        return true;
     }
 
 

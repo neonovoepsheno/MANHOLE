@@ -18,11 +18,21 @@ public class TimeControlManager : MainManager
     public static float timeToDecrease;
     public static bool isPause;
 
+    public static TimeControlManager timeControlManager = null;
+
     void Start()
     {
-        startDelay = tStartDelay;
-        timeToDecrease = tTimeToDecreasePause;
-        currTimeScale = maxTimeScale;
+        if (timeControlManager == null)
+        {
+            timeControlManager = this;
+            startDelay = tStartDelay;
+            timeToDecrease = tTimeToDecreasePause;
+            currTimeScale = maxTimeScale;
+        }
+        else if (timeControlManager == this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Update()

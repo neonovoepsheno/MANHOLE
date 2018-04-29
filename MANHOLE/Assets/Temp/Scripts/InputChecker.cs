@@ -41,10 +41,10 @@ public class InputChecker : BallBehaviour {
     {
         if (Input.GetButton("Fire1") && IsValidInput())
         {
-            if (SpiralMoving.isSpiralStartAllowed)
+            acumTime += Time.deltaTime;
+            if (acumTime >= HOLD_TIME)
             {
-                acumTime += Time.deltaTime;
-                if (acumTime >= HOLD_TIME)
+                if (SpiralMoving.isSpiralStartAllowed)
                 {
                     if (!SpiralMoving.isSpiral)
                     {
@@ -57,9 +57,10 @@ public class InputChecker : BallBehaviour {
                     {
                         SpiralMoving.isSpiral = SpiralMoving.IsSpiralAllowed();
                     }
-                    return;
                 }
+                return;
             }
+
         }
         else if (Input.GetButtonUp("Fire1") && IsValidInput())
         {

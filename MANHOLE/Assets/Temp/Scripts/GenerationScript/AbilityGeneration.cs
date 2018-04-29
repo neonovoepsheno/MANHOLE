@@ -41,8 +41,8 @@ public class AbilityGeneration : ObjectGeneration
 
     private void GenerateAbility()
     {
-        Vector3 generationPosition = Random.insideUnitCircle * arenaRadius;
-        GameObject ability = Instantiate(abilityPrefabArray[(int)Random.Range(0f, abilityPrefabArray.Length - 1)], generationPosition, Quaternion.identity);
+        Vector3 generationPosition = (Random.insideUnitCircle * arenaRadius) + (Vector2)arena.transform.position;
+        GameObject ability = Instantiate(abilityPrefabArray[(int)Random.Range(0f, abilityPrefabArray.Length)], generationPosition, Quaternion.identity);
         lastAbilityGeneration = GAME_TIME;
         DestroiyObjectOnCollision(ability, "Ability", generationPosition);
     }

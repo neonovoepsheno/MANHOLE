@@ -25,14 +25,24 @@ public class AbilityBehaviour : MainManager
         }
     }
 
-
     void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag == "Player")
         {
             Destroy(gameObject);
             Debug.Log("You use " + abilityID);
-            GUIScript.ChangeSpiralBarValue(-1);
+            UseAbility(abilityID);
         }
+    }
+
+    void UseAbility(string caseID)
+    {
+        SlowMotionAbility.ability.CreateSlowMotion();
+        //switch (caseID)
+        //{
+        //    case "Ability_02":
+        //        SlowMotionAbility.ability.CreateSlowMotion();
+        //        break;
+        //}
     }
 }
