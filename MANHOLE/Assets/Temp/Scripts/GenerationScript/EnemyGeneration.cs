@@ -7,31 +7,108 @@ public class EnemyGeneration : ObjectGeneration
 
 	[SerializeField]
 	private GameObject[] points;
-    [SerializeField]
-    private GameObject[] enemyPrefabArray;
-    [SerializeField]
-    private float eGenerationDelay;
 
-    private float lastEnemyGeneration = 0f;
-    private int currentEnemyGenerationPoint = 0;
+    float lastEnemyGeneration = 0f;
+    float[] pitchRange = { 50, 60 };
+    float currentPitch;
+
+    Sequence currentSequence;
+    int currentEnemy;
+    bool isSequenceSelected;
+    float selectChance;
+
+    void Start()
+    {
+        Initialize();
+    }
 
 
     void Update()
     {
         if (!GUIScript.isGUIWindowEnable && GAME_TIME - startTime > TimeControlManager.startDelay)
         {
-            CheckEnemyGenerationCondition();
+            if (isSequenceSelected)
+            {
+                GenerateSelectedSequence();
+            }
+            else
+            {
+                SelectSequence();
+            }
         }
     }
 
-    private void CheckEnemyGenerationCondition()
+
+    void GenerateSelectedSequence()
     {
-        if (GAME_TIME - lastEnemyGeneration > eGenerationDelay)
+        if (GAME_TIME - lastEnemyGeneration > currentSequence.GetEnemies()[currentEnemy].generationDelay)
         {
-            Instantiate(enemyPrefabArray[(int)Random.Range(0f, enemyPrefabArray.Length)], points[(int)Random.Range(0f, points.Length)].transform.position, Quaternion.identity);
+            Instantiate(currentSequence.GetEnemies()[currentEnemy].prefab, points[currentSequence.GetEnemies()[currentEnemy].generationPoint].transform.position, Quaternion.identity);
             lastEnemyGeneration = GAME_TIME;
-            currentEnemyGenerationPoint = (currentEnemyGenerationPoint + 1) % points.Length;
-            return;
+            currentEnemy++;
+            if (currentEnemy == currentSequence.GetEnemies().Length)
+            {
+                SetSeqValueNull();
+            }
         }
+    }
+
+
+    void SelectSequence()
+    {
+        currentPitch = AudioAnalysis.GetPitchValue();
+        if (currentPitch >= pitchRange[0] && currentPitch <= pitchRange[1])
+        {
+            if (CheckFirstSelection())
+            {
+                return;
+            }
+            else if (CheckSecondSelection())
+            {
+                return;
+            }
+        }
+    }
+
+
+    bool CheckFirstSelection()
+    {
+        selectChance = Random.Range(0f, 1f);
+        if (selectChance <= FirstSequence.seq.GetChance())
+        {
+            Debug.Log("we choose first seq");
+            isSequenceSelected = true;
+            currentSequence = FirstSequence.seq;
+            return true;
+        }
+        return false;
+    }
+
+
+    bool CheckSecondSelection()
+    {
+        selectChance = Random.Range(0f, 1f);
+        if (selectChance <= SecondSequence.seq.GetChance())
+        {
+            isSequenceSelected = true;
+            currentSequence = SecondSequence.seq;
+            return true;
+        }
+        return false;
+    }
+
+
+    void Initialize()
+    {
+        SetSeqValueNull();
+        lastEnemyGeneration = 0;
+    }
+
+
+    void SetSeqValueNull()
+    {
+        currentSequence = null;
+        currentEnemy = 0;
+        isSequenceSelected = false;
     }
 }

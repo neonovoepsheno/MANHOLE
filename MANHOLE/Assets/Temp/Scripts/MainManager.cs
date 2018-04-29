@@ -23,6 +23,16 @@ public class MainManager : MonoBehaviour
 
     public static MainManager manager = null;
 
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause && !GUIScript.isGUIWindowEnable)
+        {
+            GUIScript.gui.EnablePauseWindow(true);
+            AudioManager.IsPause = true;
+            TimeControlManager.isPause = true;
+        }
+    }
+
 
     private void Start()
     {
