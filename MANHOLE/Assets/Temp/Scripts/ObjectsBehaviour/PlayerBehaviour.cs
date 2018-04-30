@@ -26,6 +26,10 @@ public class PlayerBehaviour : BallBehaviour
     private float pSpiralAllowedDelayTime;
 	[SerializeField]
 	private float pOuterScale;
+    [SerializeField]
+    private float pOuterSpeedBack;
+    [SerializeField]
+    private float pInnerSpeedBack;
 
     private static int directionCoef = 1;
 
@@ -44,6 +48,7 @@ public class PlayerBehaviour : BallBehaviour
 
     private float[] pSpeedSpiralCoefArray;
     private float[] pScaleCoefArray;
+    private float[] pSpeedBackCoefArray;
     
     public static float spiralStartTime;
     public static float spiralFinishTime;
@@ -82,8 +87,11 @@ public class PlayerBehaviour : BallBehaviour
         LinearCoefSelection(pOuterRadius, pInnerRadius, startScale.x, innerScale, pScaleCoefArray);
         pSpeedSpiralCoefArray = new float[2];
         LinearCoefSelection(pOuterRadius, pInnerRadius, pOuterSpeedSpiral, pInnerSpeed, pSpeedSpiralCoefArray);
+        pSpeedBackCoefArray = new float[2];
+        LinearCoefSelection(pOuterRadius, pInnerRadius, pOuterSpeedSpiral, pInnerSpeed, pSpeedBackCoefArray);
 
-		transform.localScale = new Vector3 (outerScale, outerScale, outerScale);
+
+        transform.localScale = new Vector3 (outerScale, outerScale, outerScale);
     }
 
 
@@ -136,7 +144,15 @@ public class PlayerBehaviour : BallBehaviour
 	{
         if (radius < pOuterRadius)
         {
-            pCurrentSpeed = UpdateValueWithLinearCoef(pSpeedSpiralCoefArray, radius);
+            if (SpiralMoving.isSpiral)
+            {
+                pCurrentSpeed = UpdateValueWithLinearCoef(pSpeedSpiralCoefArray, radius);
+            }
+            else
+            {
+                pCurrentSpeed = UpdateValueWithLinearCoef(pSpeedBackCoefArray, radius);
+            }
+           
         }
         else
         {

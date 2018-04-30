@@ -404,6 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f085b1c93be8249a7e3c60a8a7d4ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seqGenerationChance: 0.35
   Enemies:
   - prefab: {fileID: 1711297630657596, guid: fca5989b851629a4da1ed24e8e885324, type: 2}
     generationPoint: 3
@@ -417,7 +418,6 @@ MonoBehaviour:
   - prefab: {fileID: 1172331742466988, guid: 1885a4afd8ef9f84aa6e2397269ef0a8, type: 2}
     generationPoint: 7
     generationDelay: 1.4
-  seqGenerationChance: 0.35
 --- !u!114 &250144539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,6 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f1156bf47c9c140b1ce2643319011c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seqGenerationChance: 0.65
   Enemies:
   - prefab: {fileID: 1711297630657596, guid: fca5989b851629a4da1ed24e8e885324, type: 2}
     generationPoint: 4
@@ -439,7 +440,6 @@ MonoBehaviour:
   - prefab: {fileID: 1711297630657596, guid: fca5989b851629a4da1ed24e8e885324, type: 2}
     generationPoint: 11
     generationDelay: 0.7
-  seqGenerationChance: 0.65
 --- !u!1 &333790824
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,6 +637,8 @@ MonoBehaviour:
   pSpiralAllowedTime: 2.5
   pSpiralAllowedDelayTime: 0.5
   pOuterScale: 1
+  pOuterSpeedBack: 5
+  pInnerSpeedBack: 36
 --- !u!58 &429237755
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2711,10 +2713,6 @@ MonoBehaviour:
   - {fileID: 571919398}
   - {fileID: 1582419171}
   - {fileID: 1085082971}
-  eGenerationDelay: 1.45
-  sequences:
-  - {fileID: 11500000, guid: 02f085b1c93be8249a7e3c60a8a7d4ab, type: 3}
-  - {fileID: 11500000, guid: f5f1156bf47c9c140b1ce2643319011c, type: 3}
 --- !u!1 &1501237010
 GameObject:
   m_ObjectHideFlags: 0
