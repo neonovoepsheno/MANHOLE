@@ -1194,7 +1194,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 407fdaec0c1974a4d82dfca634acc36d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e752c5384d198fb449b0051053bd1f00, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2633,11 +2633,8 @@ MonoBehaviour:
   - {fileID: 1582419171}
   - {fileID: 1085082971}
   - {fileID: 1347256645}
-  enemyPrefabArray:
-  - {fileID: 1172331742466988, guid: 1885a4afd8ef9f84aa6e2397269ef0a8, type: 2}
-  - {fileID: 1995327100639648, guid: c424eece62823db41a503b56c9901c50, type: 2}
-  - {fileID: 1256495238195358, guid: 9f301a095f80aad408f4ffde77335c5d, type: 2}
-  eGenerationDelay: 1.45
+  enemyPrefabArray: []
+  eGenerationDelay: 0
 --- !u!1 &1501237010
 GameObject:
   m_ObjectHideFlags: 0
